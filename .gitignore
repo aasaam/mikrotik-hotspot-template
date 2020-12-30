@@ -1,0 +1,15 @@
+/node_modules/
+/.vscode/
+package-lock.json
+
+/public/fonts
+/public/images
+/tmp/
+
+/public/js/_*
+/public/css/*.css
+/public/css/__*
+/public/*.html
+
+/additional/logo.svg
+/version.js

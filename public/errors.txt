@@ -1,0 +1,47 @@
+# internal error
+internal-error = internal-error
+
+# configuration error
+config-error = config-error
+
+# you are not logged in
+not-logged-in = not-logged-in:ip:$(ip)
+
+# cannot assign ip address - no more free addresses from pool
+ippool-empty = ippool-empty
+
+# hotspot service is shutting down
+shutting-down = shutting-down
+
+# no more sessions are allowed for user
+user-session-limit = user-session-limit
+
+# session limit reached
+license-session-limit = license-session-limit:error:$(error-orig)
+
+# invalid username 'username' this MAC address is not yours
+wrong-mac-username = wrong-mac-username
+
+# web browser did not send challenge response (try again, enable JavaScript)
+chap-missing = chap-missing
+
+# invalid username or password
+invalid-username = invalid-username
+
+# user username is not allowed to log in from this MAC address
+invalid-mac = invalid-mac
+
+# user username has reached uptime limit
+uptime-limit = uptime-limit
+
+# user username has reached traffic limit
+traffic-limit = traffic-limit
+
+# RADIUS server is not responding
+radius-timeout = radius-timeout
+
+# already authorizing, retry later
+auth-in-progress = auth-in-progress
+
+# error
+radius-reply = radius-reply

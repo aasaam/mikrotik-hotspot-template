@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html
+  data-ng-attr-dir="{{ dir }}"
+  data-ng-attr-lang="{{ lang }}"
+  data-ng-app="app"
+>
+  <head>
+    (% include "includes/head.html" %)
+  </head>
+  <body>
+    (% include "includes/loading.html" %)
+    <div class="main" style="display: none;">
+      (% include "includes/navbar.html" %)
+      <main class="container py-6 px-3" data-ng-controller="ALoginController">
+        <div>
+          (% include "includes/organization.html" %)
+        </div>
+        <div class="columns is-centered">
+          <div class="column two-thirds-desktop">
+            <div class="card">
+              <header class="card-header has-background-success">
+                <p class="card-header-title has-text-light">
+                  {{ i18n[title] }}
+                </p>
+              </header>
+              <div class="card-content ng-scope">
+                <h3>
+                  {{ i18n.youAreLoggedInIfNothingHappened }}
+                </h3>
+                <br />
+                <br />
+                <p class="has-text-centered">
+                  <a
+                    class="button is-info"
+                    title="{{ i18n.redirect }}"
+                    href="{{ mikrotik['link-redirect'] }}"
+                  >
+                    <span>
+                      {{ i18n.redirect }}
+                    </span>
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      (% include "includes/footer.html" %)
+    </div>
+
+    (% include "includes/foot.html" %)
+  </body>
+</html>

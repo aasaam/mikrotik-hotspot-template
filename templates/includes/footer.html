@@ -1,0 +1,38 @@
+<footer class="footer">
+  <div class="content has-text-centered">
+    <div class="container">
+      <hr />
+      <div class="columns is-desktop is-vcentered">
+        <div class="column has-text-{{ left }}-desktop">
+          <ul class="lang">
+            <li
+              data-ng-repeat="(l, data) in languageData"
+              data-ng-if="l !== lang"
+            >
+              <button
+                data-ng-click="changeLanguage(l)"
+                title="{{ languageData[l][lang] }}"
+                class="button is-white is-small"
+              >
+                {{ languageData[l][l] }}
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="column copyright has-text-{{ right }}-desktop">
+          <p class="is-size-7">
+            {{ i18n.designAndCreatedBy | i18n : [i18n.aasaam.description] }}
+            <img
+              class="mb-1"
+              alt="{{ i18n.aasaam.name }}"
+              title="{{ i18n.aasaam.description }}"
+              src="./images/aasaam.svg"
+              width="32"
+              height="32"
+            />
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

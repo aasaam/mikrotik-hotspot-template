@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html
+  data-ng-attr-dir="{{ dir }}"
+  data-ng-attr-lang="{{ lang }}"
+  data-ng-app="app"
+>
+  <head>
+    (% include "includes/head.html" %)
+  </head>
+  <body>
+    (% include "includes/loading.html" %)
+    <div class="main" style="display: none;">
+      (% include "includes/navbar.html" %)
+      <main class="container py-6 px-3" data-ng-controller="LoginController">
+        <div>
+          (% include "includes/organization.html" %)
+        </div>
+        <div class="columns is-centered">
+          <div class="column two-thirds-desktop">
+            <div class="card">
+              <header class="card-header has-background-primary">
+                <p class="card-header-title has-text-white">
+                  {{ i18n[title] }}
+                </p>
+              </header>
+              <div class="card-content">
+                <article class="message is-danger" data-ng-if="mikrotik.error">
+                  <div class="message-header">
+                    <p>{{ i18n.error }}</p>
+                  </div>
+                  <div class="message-body">
+                    <p>
+                      {{ i18n.errors['$(error)']}}
+                    </p>
+                    <br />
+                    <br />
+                    <pre dir="ltr">$(error-orig)</pre>
+                  </div>
+                </article>
+                <div data-ng-if="mikrotik.trial">
+                  <div class="notification is-warning is-light">
+                    <h3 class="is-size-5">
+                      {{ i18n.trialUser }}
+                    </h3>
+                    <p>
+                      {{ i18n.trialUserMessage }}
+                    </p>
+                    <br />
+                    <div class="has-text-centered">
+                      <a
+                        class="button is-warning"
+                        href="$(link-login-only)?dst=$(link-orig-esc)&amp;username=T-$(mac-esc)"
+                      >
+                        {{ i18n.trialAccess }}
+                      </a>
+                    </div>
+                  </div>
+                  <hr />
+                </div>
+                <form name="login" action="$(link-login-only)" method="post">
+                  <input type="hidden" name="password" value="{{ password }}" />
+                  <input type="hidden" name="dst" value="$(link-orig)" />
+                  <input type="hidden" name="popup" value="true" />
+                  <div class="field">
+                    <label class="label" for="username"
+                      >{{ i18n.username }}</label
+                    >
+                    <div class="control">
+                      <input
+                        id="username"
+                        name="username"
+                        data-ng-model="username"
+                        class="input"
+                        type="text"
+                        placeholder="{{ i18n.username }}"
+                      />
+                    </div>
+                    <p class="help">{{ i18n.usernameHelp }}</p>
+                  </div>
+                  <div class="field">
+                    <label class="label" for="password"
+                      >{{ i18n.password }}</label
+                    >
+                    <div class="control">
+                      <input
+                        id="password"
+                        data-ng-model="rawPassword"
+                        data-ng-change="calculatePassword()"
+                        class="input"
+                        type="password"
+                        placeholder="{{ i18n.password }}"
+                      />
+                    </div>
+                    <p class="help">{{ i18n.passwordHelp }}</p>
+                  </div>
+                  <div class="has-text-centered">
+                    <button
+                      class="button is-medium is-link"
+                      data-ng-disabled="!username || !password"
+                    >
+                      {{ i18n[title] }}
+                    </button>
+                  </div>
+                </form>
+                <hr />
+                <div data-ng-if="i18n.loginAdditionalInformation">
+                  <article class="message is-info">
+                    <div class="message-header">
+                      <p>{{ i18n.help }}</p>
+                    </div>
+                    <div
+                      class="message-body"
+                      data-ng-bind-html="i18n.loginAdditionalInformation | trust"
+                    ></div>
+                  </article>
+                  <hr />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      (% include "includes/footer.html" %)
+    </div>
+
+    (% include "includes/foot.html" %)
+  </body>
+</html>

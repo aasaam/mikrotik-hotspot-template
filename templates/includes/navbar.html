@@ -1,0 +1,46 @@
+<nav class="navbar is-info" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" data-ng-href="{{ homePage }}">
+        {{ i18n.organization }}
+      </a>
+      <a
+        role="button"
+        class="navbar-burger burger"
+        aria-label="menu"
+        data-ng-click="navbar = !navbar"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div class="navbar-menu" data-ng-class="{'is-active' : navbar }">
+      <div class="navbar-end">
+        <a
+          class="navbar-item"
+          data-ng-if="!mikrotik['logged-in']"
+          data-ng-href="{{ mikrotik['link-login'] }}"
+        >
+          {{ i18n.login }}
+        </a>
+
+        <a
+          class="navbar-item"
+          data-ng-if="mikrotik['logged-in']"
+          data-ng-href="{{ mikrotik['link-status'] }}"
+        >
+          {{ i18n.status }}
+        </a>
+        <a
+          class="navbar-item"
+          data-ng-if="mikrotik['logged-in']"
+          data-ng-href="{{ mikrotik['link-logout'] }}"
+        >
+          {{ i18n.logout }} [<strong>{{ mikrotik.username }}</strong>]
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

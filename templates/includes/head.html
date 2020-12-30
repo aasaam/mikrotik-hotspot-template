@@ -1,0 +1,25 @@
+<meta charset="utf-8" />
+<title data-ng-bind-template="{{ i18n[title] }} | {{ i18n.organization }}">
+  Loading...
+</title>
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="expires" content="-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script>
+  var languageData = (@ languageData @);
+  var chapId = '$(chap-id)';
+  var chapChallenge = '$(chap-challenge)';
+</script>
+<style>
+  (@ loading @)
+</style>
+<!--! $(if refresh-timeout) -->
+<meta http-equiv="refresh" content="$(refresh-timeout-secs)" />
+<!--! $(endif) -->
+(% for item in mikrotik %)(% if item.type %)<meta
+  name="mikrotik.(@ item.name @)"
+  content="$((@ item.name @))"
+  data-type="(@ item.type @)"
+/>
+(% else %)<meta name="mikrotik.(@ item.name @)" content="$((@ item.name @))" />
+(% endif %)(% endfor %)

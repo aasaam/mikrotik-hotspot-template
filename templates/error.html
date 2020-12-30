@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html
+  data-ng-attr-dir="{{ dir }}"
+  data-ng-attr-lang="{{ lang }}"
+  data-ng-app="app"
+>
+  <head>
+    (% include "includes/head.html" %)
+  </head>
+  <body>
+    (% include "includes/loading.html" %)
+    <div class="main" style="display: none;">
+      (% include "includes/navbar.html" %)
+      <main class="container py-6 px-3" data-ng-controller="ErrorController">
+        <div>
+          (% include "includes/organization.html" %)
+        </div>
+        <div class="columns is-centered">
+          <div class="column two-thirds-desktop">
+            <div class="card">
+              <header class="card-header has-background-warning">
+                <p class="card-header-title">
+                  {{ i18n[title] }}
+                </p>
+              </header>
+              <div class="card-content" data-ng-if="mikrotik['error']">
+                <h3>{{ i18n.errors['$(error)']}}</h3>
+                <hr />
+                <pre dir="ltr">$(error-orig)</pre>
+                <hr />
+                <p class="has-text-centered">
+                  <a
+                    class="button is-info is-medium"
+                    data-ng-href="{{ mikrotik['link-login'] }}"
+                    title="{{ mikrotik['link-login'] }}"
+                  >
+                    {{ i18n.loginPage }}
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      (% include "includes/footer.html" %)
+    </div>
+
+    (% include "includes/foot.html" %)
+  </body>
+</html>

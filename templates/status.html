@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html
+  data-ng-attr-dir="{{ dir }}"
+  data-ng-attr-lang="{{ lang }}"
+  data-ng-app="app"
+>
+  <head>
+    (% include "includes/head.html" %)
+  </head>
+  <body>
+    (% include "includes/loading.html" %)
+    <div class="main" style="display: none;">
+      (% include "includes/navbar.html" %)
+      <main class="container py-6 px-3" data-ng-controller="StatusController">
+        <div>
+          (% include "includes/organization.html" %)
+        </div>
+        <div class="columns is-centered">
+          <div class="column two-thirds-desktop">
+            <div class="card">
+              <header class="card-header has-background-success">
+                <p class="card-header-title has-text-light">
+                  {{ i18n[title] }}
+                </p>
+              </header>
+              <div class="card-content">
+                <div class="table-container">
+                  <table class="table is-fullwidth is-hoverable">
+                    <tr>
+                      <td colspan="2">
+                        <p data-ng-show="mikrotik['login-by'] === 'trial'">
+                          {{ i18n.welcomeTrial }}
+                        </p>
+                        <p
+                          data-ng-show="mikrotik['login-by'] !== 'trial' && mikrotik['login-by'] !== 'mac'"
+                        >
+                          {{ i18n.welcomeUserToOrg | i18n:
+                          [mikrotik['username'], i18n.networkTitle,
+                          i18n.organization ] }}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        {{ i18n.IP }}
+                      </td>
+                      <td>
+                        <code dir="ltr">{{ mikrotik['ip'] }}</code>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        {{ i18n.mac }}
+                      </td>
+                      <td>
+                        <code dir="ltr">{{ mikrotik['mac'] }}</code>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th colspan="2">
+                        {{ i18n.uptime }}
+                      </th>
+                    </tr>
+                    <tr>
+                      <td>
+                        {{ i18n.uptimeFrom }}
+                      </td>
+                      <td>
+                        <span title="{{ mikrotik['uptime-secs'] }}"
+                          >{{ humanSeconds(mikrotik['uptime-secs'], -1) }}</span
+                        >
+                      </td>
+                    </tr>
+                    <tr data-ng-if="mikrotik['session-time-left-secs'] > 1">
+                      <td>
+                        {{ i18n.sessionTimeLeft }}
+                      </td>
+                      <td>
+                        <span title="{{ mikrotik['session-time-left-secs'] }}"
+                          >{{ humanSeconds(mikrotik['session-time-left-secs'],
+                          1) }}</span
+                        >
+                      </td>
+                    </tr>
+                    <tr data-ng-if="mikrotik['session-time-left-secs'] > 1">
+                      <td colspan="2">
+                        <progress
+                          class="progress is-small is-info"
+                          value="{{ uptimeProgress.value(mikrotik['uptime-secs'], mikrotik['session-time-left-secs']) }}"
+                          max="{{ uptimeProgress.max(mikrotik['uptime-secs'], mikrotik['session-time-left-secs']) }}"
+                          >{{ uptimeProgress.percent(mikrotik['uptime-secs'],
+                          mikrotik['session-time-left-secs']) }}</progress
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <th colspan="2">
+                        {{ i18n.bytesInOut }}
+                      </th>
+                    </tr>
+                    <tr>
+                      <td>
+                        {{ i18n.bytesIn }}
+                      </td>
+                      <td>
+                        <code dir="ltr"
+                          >{{ humanBytes(mikrotik['bytes-in']) }}</code
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        {{ i18n.bytesOut }}
+                      </td>
+                      <td>
+                        <code dir="ltr"
+                          >{{ humanBytes(mikrotik['bytes-out']) }}</code
+                        >
+                      </td>
+                    </tr>
+                    <tr
+                      data-ng-if="mikrotik['bytes-in'] && mikrotik['bytes-out']"
+                    >
+                      <td colspan="2">
+                        <div class="chart-container">
+                          <canvas
+                            chart-pie
+                            chart-labels='["{{ i18n.bytesIn }}", "{{ i18n.bytesOut }}"]'
+                            chart-numbers='["{{ mikrotik["bytes-in"] }}", "{{ mikrotik["bytes-out"] }}"]'
+                            chart-title="{{ i18n.bytesInOut }}"
+                          ></canvas>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr
+                      data-ng-if="mikrotik['remain-bytes-in'] >= 1 && mikrotik['remain-bytes-out'] >= 1"
+                    >
+                      <th colspan="2">
+                        {{ i18n.remainBytes }}
+                      </th>
+                    </tr>
+                    <tr data-ng-if="mikrotik['remain-bytes-in'] >= 1">
+                      <td>
+                        {{ i18n.remainBytesIn }}
+                      </td>
+                      <td>
+                        <code dir="ltr"
+                          >{{ humanBytes(mikrotik['remain-bytes-in']) }}</code
+                        >
+                      </td>
+                    </tr>
+                    <tr data-ng-if="mikrotik['remain-bytes-out'] >= 1">
+                      <td>
+                        {{ i18n.remainBytesOut }}
+                      </td>
+                      <td>
+                        <code dir="ltr"
+                          >{{ humanBytes(mikrotik['remain-bytes-out']) }}</code
+                        >
+                      </td>
+                    </tr>
+
+                    <tr
+                      data-ng-if="mikrotik['remain-bytes-in'] >= 1 && mikrotik['remain-bytes-out'] >= 1"
+                    >
+                      <td colspan="2">
+                        <div class="chart-container">
+                          <canvas
+                            chart-bar
+                            chart-labels='["{{ i18n.remainBytesIn }}", "{{ i18n.remainBytesOut }}"]'
+                            chart-numbers='["{{ mikrotik["remain-bytes-in"] }}", "{{ mikrotik["remain-bytes-out"] }}"]'
+                            chart-title="{{ i18n.remainBytes }}"
+                          ></canvas>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      (% include "includes/footer.html" %)
+    </div>
+
+    (% include "includes/foot.html" %)
+  </body>
+</html>

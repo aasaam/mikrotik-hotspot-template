@@ -1,0 +1,9 @@
+{
+  "delay": "1000",
+  "watch": [
+    "public/js/main.js",
+    "templates/*",
+    "public/css/_main.scss"
+  ],
+  "ext": "js,scss,html"
+}
